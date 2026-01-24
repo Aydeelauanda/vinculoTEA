@@ -1,4 +1,8 @@
+import { useNavigate } from "react-router-dom";
+
 export default function AlunosHeader() {
+  const navigate = useNavigate();
+
   return (
     <div style={{ marginBottom: "24px" }}>
       <h1>Gestão de Alunos</h1>
@@ -30,6 +34,7 @@ export default function AlunosHeader() {
         <div style={{ display: "flex", gap: "12px" }}>
           <button>Exportar</button>
           <button
+            onClick={() => navigate("/alunos/novo")}
             style={{
               background: "#4F46E5",
               color: "#fff",

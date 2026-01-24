@@ -8,8 +8,19 @@ interface Aluno {
     cadastro: string;
 }
 
+// interface Props {
+//     alunos: any[]
+//     onDelete: (id: number, nome: string) => void;
+// }
+
+// export default function AlunosTable({ alunos, onDelete }: Props) {
+//   const formatDate = (dateString: string) => {
+//     if (!dateString) return '-';
+//     return new Date(dateString).toLocaleDateString('pt-BR');
+//   };
+
 const alunos: Aluno[] = Array.from({ length: 10 }).map((_, index) => ({
-    nome: `Aluno ${index + 1}`,
+nome: `Aluno ${index + 1}`,
     idade: 6 + index,
     escola: index % 3 === 0 ? "São Bento" : index % 3 === 1 ? "Centro Educacional" : "Vila Nova",
     responsavel: index % 2 === 0 ? "Mãe/Pai" : "Avó/Avô",

@@ -1,4 +1,8 @@
+import { useNavigate } from "react-router-dom";
+
 export default function ProfissionaisHeader() {
+const navigate = useNavigate();
+
   return (
     <div style={{ marginBottom: "24px" }}>
       <h1>Gestão de Profissionais</h1>
@@ -30,6 +34,7 @@ export default function ProfissionaisHeader() {
         <div style={{ display: "flex", gap: "12px" }}>
           <button>Exportar</button>
           <button
+            onClick={() => navigate("/profissionais/novo")}
             style={{
               background: "#2563eb",
               color: "#fff",

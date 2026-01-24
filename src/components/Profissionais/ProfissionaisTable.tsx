@@ -1,4 +1,5 @@
 import Pagination from "../Table/Pagination";
+// import { useNavigate } from "react-router-dom";
 
 interface Profissional {
   nome: string;
@@ -17,6 +18,8 @@ const profissionais: Profissional[] = Array.from({ length: 10 }).map(() => ({
 }));
 
 export default function ProfissionaisTable() {
+  // const navigate = useNavigate();
+
   return (
     <div
       style={{
