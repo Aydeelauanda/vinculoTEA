@@ -6,7 +6,7 @@ import {
   ChevronRight, TrendingUp, Menu, X, Filter
 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
-import logoImg from '@/assets/images/VínculoTEA_logo.jpeg';
+import logoImg from '@/assets/images/logo_vinculo.jpeg';
 import { StudentsView } from './Students/StudentsView';
 import { ManagementView } from './Management/ManagementView';
 import { DisciplineView } from './Discipline/DisciplineView';
