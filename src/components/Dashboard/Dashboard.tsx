@@ -6,7 +6,7 @@ import {
   ChevronRight, TrendingUp, Menu, X, Filter
 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
-import logoImg from '@/assets/images/edututor_logo.jpeg';
+import logoImg from '@/assets/images/VínculoTEA_logo.jpeg';
 import { StudentsView } from './Students/StudentsView';
 import { ManagementView } from './Management/ManagementView';
 import { DisciplineView } from './Discipline/DisciplineView';
@@ -74,7 +74,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
           <>
             <header className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 md:mb-12 gap-4">
               <div className="animate-in fade-in slide-in-from-left-4 duration-500">
-                <h1 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight">Bem-vindo, EduTutorPei!</h1>
+                <h1 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight">Bem-vindo, VínculoTEAPei!</h1>
                 <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 mt-1">
                   <p className="text-slate-500 dark:text-slate-400 text-sm font-medium">Visão geral completa do sistema educacional </p>
                   <span className="hidden sm:block size-1 bg-slate-300 dark:bg-slate-600 rounded-full" />
@@ -322,7 +322,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
       <div className={styles.mobileHeader}>
         <div className="flex items-center gap-3">
           <img src={logoImg} alt="Logo" className="h-8 w-auto" />
-          <span className="font-bold text-slate-800 dark:text-white">EduTutor PEI</span>
+          <span className="font-bold text-slate-800 dark:text-white">VínculoTEA</span>
         </div>
         <button onClick={() => setSidebarOpen(true)} className="p-2 text-slate-600 dark:text-slate-300">
           <Menu size={24} />
@@ -350,7 +350,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
           <div className="flex items-center justify-center mb-12">
             <img
               src={logoImg}
-              alt="EduTutor PEI Logo"
+              alt="VínculoTEA Logo"
               className={styles.image}
               style={{ maxWidth: '100%', height: 'auto' }}
             />

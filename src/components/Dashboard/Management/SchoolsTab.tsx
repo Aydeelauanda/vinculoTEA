@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Search, Plus, X, Building2, MapPin, Phone, GraduationCap, Loader2 } from 'lucide-react';
-import { studentService } from '../../../lib/studentService';
+import { schoolsService } from '../../../lib/schoolsService';
 
 export const SchoolsTab = () => {
     const [isCreating, setIsCreating] = useState(false);
@@ -17,9 +17,9 @@ export const SchoolsTab = () => {
     const loadSchools = async () => {
         try {
             setIsLoading(true);
-            const data = await studentService.getAllSchools();
-            setSchools(data);
-        } catch (err) {
+            const data = await schoolsService.getAll();
+            setSchools(data || []);
+        } catch (err: any) {
             console.error('Erro ao carregar escolas:', err);
         } finally {
             setIsLoading(false);
@@ -30,16 +30,24 @@ export const SchoolsTab = () => {
         loadSchools();
     }, []);
 
-    const handleSubmit = async () => {
-        if (!formData.nome) return alert('Nome é obrigatório');
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!formData.nome) {
+            alert('O nome da instituição é obrigatório!');
+            return;
+        }
+
         try {
             setIsSubmitting(true);
-            await studentService.createSchool(formData);
+            console.log('Tentando salvar escola:', formData);
+            await schoolsService.create(formData);
+            alert('Escola salva com sucesso!');
             setIsCreating(false);
             setFormData({ nome: '', cnpj: '', telefone: '', endereco: '' });
             await loadSchools();
-        } catch (err) {
-            alert('Erro ao salvar escola');
+        } catch (err: any) {
+            console.error('Erro detalhado:', err);
+            alert('Erro ao salvar: ' + (err.message || 'Verifique sua conexão ou as tabelas no Supabase'));
         } finally {
             setIsSubmitting(false);
         }
@@ -58,10 +66,11 @@ export const SchoolsTab = () => {
                     </button>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2 md:col-span-2">
-                        <label className="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">Nome da Instituição</label>
+                        <label className="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">Nome da Instituição *</label>
                         <input 
+                            required
                             type="text" 
                             value={formData.nome}
                             onChange={(e) => setFormData({...formData, nome: e.target.value})}
@@ -102,18 +111,18 @@ export const SchoolsTab = () => {
                             placeholder="Rua, Número, Bairro, Cidade - UF" 
                         />
                     </div>
-                </div>
 
-                <div className="flex flex-col sm:flex-row gap-4 pt-6 border-t border-slate-50 dark:border-slate-800">
-                    <button onClick={() => setIsCreating(false)} className="flex-1 px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest text-slate-500 hover:bg-slate-50 transition-all">Descartar</button>
-                    <button 
-                        onClick={handleSubmit}
-                        disabled={isSubmitting}
-                        className="flex-1 px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest bg-primary text-white shadow-lg shadow-primary/25 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2"
-                    >
-                        {isSubmitting ? <Loader2 size={18} className="animate-spin" /> : 'Salvar Unidade'}
-                    </button>
-                </div>
+                    <div className="flex flex-col sm:flex-row gap-4 pt-6 border-t border-slate-50 dark:border-slate-800 md:col-span-2">
+                        <button type="button" onClick={() => setIsCreating(false)} className="flex-1 px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest text-slate-500 hover:bg-slate-50 transition-all">Descartar</button>
+                        <button 
+                            type="submit"
+                            disabled={isSubmitting}
+                            className="flex-1 px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest bg-primary text-white shadow-lg shadow-primary/25 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+                        >
+                            {isSubmitting ? <Loader2 size={18} className="animate-spin" /> : 'Salvar Unidade'}
+                        </button>
+                    </div>
+                </form>
             </div>
         );
     }

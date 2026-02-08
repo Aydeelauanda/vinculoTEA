@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { School, GraduationCap, Users } from 'lucide-react';
-import { SchoolsTab } from './SchoolsTab';
-import { TeachersTab } from './TeachersTab';
+import { SchoolsTab } from "./SchoolsTab";
+import { TeachersTab } from './TeacherTab';
 import { ClassesTab } from './ClassesTab';
 
 

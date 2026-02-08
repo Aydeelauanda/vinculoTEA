@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Search, Plus, X, Mail, Phone, GraduationCap, Loader2 } from 'lucide-react';
-import { studentService } from '../../../lib/studentService';
+import { teachersService } from '../../../lib/teacherService';
 
 export const TeachersTab = () => {
     const [isCreating, setIsCreating] = useState(false);
@@ -18,9 +18,9 @@ export const TeachersTab = () => {
     const loadProfessionals = async () => {
         try {
             setIsLoading(true);
-            const data = await studentService.getAllProfessionals();
-            setProfessionals(data);
-        } catch (err) {
+            const data = await teachersService.getAll();
+            setProfessionals(data || []);
+        } catch (err: any) {
             console.error('Erro ao carregar profissionais:', err);
         } finally {
             setIsLoading(false);
@@ -31,16 +31,24 @@ export const TeachersTab = () => {
         loadProfessionals();
     }, []);
 
-    const handleSubmit = async () => {
-        if (!formData.nome || !formData.email) return alert('Nome e E-mail são obrigatórios');
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!formData.nome || !formData.email) {
+            alert('Nome e E-mail são obrigatórios!');
+            return;
+        }
+
         try {
             setIsSubmitting(true);
-            await studentService.createProfessional(formData);
+            console.log('Tentando salvar profissional:', formData);
+            await teachersService.create(formData);
+            alert('Profissional salvo com sucesso!');
             setIsCreating(false);
             setFormData({ nome: '', email: '', especialidade: '', registro: '', telefone: '' });
             await loadProfessionals();
-        } catch (err) {
-            alert('Erro ao salvar profissional');
+        } catch (err: any) {
+            console.error('Erro detalhado:', err);
+            alert('Erro ao salvar: ' + (err.message || 'Verifique sua conexão ou as tabelas no Supabase'));
         } finally {
             setIsSubmitting(false);
         }
@@ -59,10 +67,11 @@ export const TeachersTab = () => {
                     </button>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2 md:col-span-2">
-                        <label className="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">Nome Completo</label>
+                        <label className="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">Nome Completo *</label>
                         <input 
+                            required
                             type="text" 
                             value={formData.nome}
                             onChange={(e) => setFormData({...formData, nome: e.target.value})}
@@ -72,8 +81,9 @@ export const TeachersTab = () => {
                     </div>
 
                     <div className="space-y-2">
-                        <label className="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">E-mail</label>
+                        <label className="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">E-mail *</label>
                         <input 
+                            required
                             type="email" 
                             value={formData.email}
                             onChange={(e) => setFormData({...formData, email: e.target.value})}
@@ -118,18 +128,18 @@ export const TeachersTab = () => {
                             placeholder="(00) 00000-0000" 
                         />
                     </div>
-                </div>
 
-                <div className="flex flex-col sm:flex-row gap-4 pt-6 border-t border-slate-50 dark:border-slate-800">
-                    <button onClick={() => setIsCreating(false)} className="flex-1 px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest text-slate-500 hover:bg-slate-50 transition-all">Descartar</button>
-                    <button 
-                        onClick={handleSubmit}
-                        disabled={isSubmitting}
-                        className="flex-1 px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest bg-primary text-white shadow-lg shadow-primary/25 hover:scale-[1.02] transition-all flex items-center justify-center gap-2"
-                    >
-                        {isSubmitting ? <Loader2 size={18} className="animate-spin" /> : 'Salvar Profissional'}
-                    </button>
-                </div>
+                    <div className="flex flex-col sm:flex-row gap-4 pt-6 border-t border-slate-50 dark:border-slate-800 md:col-span-2">
+                        <button type="button" onClick={() => setIsCreating(false)} className="flex-1 px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest text-slate-500 hover:bg-slate-50 transition-all">Descartar</button>
+                        <button 
+                            type="submit"
+                            disabled={isSubmitting}
+                            className="flex-1 px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest bg-primary text-white shadow-lg shadow-primary/25 hover:scale-[1.02] transition-all flex items-center justify-center gap-2"
+                        >
+                            {isSubmitting ? <Loader2 size={18} className="animate-spin" /> : 'Salvar Profissional'}
+                        </button>
+                    </div>
+                </form>
             </div>
         );
     }

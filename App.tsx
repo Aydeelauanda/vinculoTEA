@@ -52,7 +52,7 @@ const App: React.FC = () => {
         <div className="flex flex-col items-center gap-4">
           <div className="size-12 border-4 border-primary/20 border-t-primary rounded-full animate-spin"></div>
           <span className="font-black text-primary text-[10px] uppercase tracking-widest">
-            Carregando EduTutor...
+            Carregando VínculoTEA...
           </span>
         </div>
       </div>
@@ -105,7 +105,7 @@ const App: React.FC = () => {
           <div className="text-center mt-10">
             <p className="text-slate-400 text-sm font-semibold">
               Ainda não faz parte?{' '}
-              <a href="https://instagram.com/edututorpei" className="text-primary font-black underline underline-offset-4">
+              <a href="https://instagram.com/VínculoTEApei" className="text-primary font-black underline underline-offset-4">
                 solicite uma demonstração
               </a>
             </p>
@@ -116,7 +116,7 @@ const App: React.FC = () => {
         {/* 'pb-8' garante que não cole na borda da tela, mas fique no final */}
         <footer className="mt-auto pt-10 pb-8 text-center">
           <p className="text-[10px] text-slate-300 font-bold uppercase tracking-[0.2em]">
-            © 2026 EduTutor
+            © 2026 VínculoTEA
           </p>
           {/* Botão de Teste Temporário */}
           <button
@@ -136,3 +136,6 @@ const App: React.FC = () => {
 };
 
 export default App;
+console.log(import.meta.env.VITE_SUPABASE_URL)
+console.log(import.meta.env.VITE_SUPABASE_ANON_KEY)
+

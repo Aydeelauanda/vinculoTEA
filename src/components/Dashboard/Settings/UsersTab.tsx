@@ -91,7 +91,7 @@ export const UsersTab = () => {
                     </thead>
                     <tbody className="divide-y divide-slate-50 dark:divide-slate-800">
                         {[
-                            { name: 'Admin Principal', email: 'admin@edututor.com', role: 'Admin', status: 'Ativo' },
+                            { name: 'Admin Principal', email: 'admin@VínculoTEA.com', role: 'Admin', status: 'Ativo' },
                             { name: 'Stella Karolina', email: 'stella@escola.com', role: 'Tutor', status: 'Ativo' },
                             { name: 'João Professor', email: 'joao@escola.com', role: 'Profissional', status: 'Inativo' },
                         ].map((user, i) => (

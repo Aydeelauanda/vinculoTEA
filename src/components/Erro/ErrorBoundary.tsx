@@ -85,7 +85,7 @@ export class ErrorBoundary extends Component<Props, State> {
                         />
 
                         <div className="absolute bottom-12 left-12">
-                            <p className={styles.footerText}>© 2026 EduTutor • Sistema de Inteligência Pedagógica</p>
+                            <p className={styles.footerText}>© 2026 VínculoTEA • Sistema de Inteligência Pedagógica</p>
                         </div>
                     </div>
                 </div>
