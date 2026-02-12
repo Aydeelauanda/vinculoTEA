@@ -8,24 +8,11 @@ export interface StudentData {
     escola: string;
     serie?: string;
     cid?: string;
+    diagnostico?: string;
+    observacoes?: string;
     responsavel_nome: string;
     responsavel_email: string;
     responsavel_telefone: string;
-}
-
-export interface SchoolData {
-    nome: string;
-    cnpj?: string;
-    telefone?: string;
-    endereco?: string;
-}
-
-export interface ProfessionalData {
-    nome: string;
-    email: string;
-    especialidade: string;
-    registro?: string;
-    telefone?: string;
 }
 
 export const studentService = {
@@ -53,26 +40,43 @@ export const studentService = {
         return data[0];
     },
 
+    // --- DISCIPLINAS (Novo) ---
+    async getDisciplines(studentId: string) {
+        const { data, error } = await supabase
+            .from('disciplines')
+            .select('*')
+            .eq('student_id', studentId);
+        if (error) throw error;
+        return data;
+    },
+
+    // --- PEIs (Novo) ---
+    async getPEIs(studentId: string) {
+        const { data, error } = await supabase
+            .from('peis')
+            .select('*')
+            .eq('student_id', studentId);
+        if (error) throw error;
+        return data;
+    },
+
     // --- ESCOLAS ---
     async getAllSchools() {
         const { data, error } = await supabase
             .from('schools')
             .select('*')
             .order('nome', { ascending: true });
-        
         if (error) throw error;
         return data;
     },
 
-    async createSchool(school: SchoolData) {
+    async createSchool(school: any) {
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) throw new Error('Usuário não autenticado');
-
         const { data, error } = await supabase
             .from('schools')
             .insert([{ ...school, user_id: user.id }])
             .select();
-
         if (error) throw error;
         return data[0];
     },
@@ -83,22 +87,18 @@ export const studentService = {
             .from('professionals')
             .select('*')
             .order('nome', { ascending: true });
-        
         if (error) throw error;
         return data;
     },
 
-    async createProfessional(professional: ProfessionalData) {
+    async createProfessional(professional: any) {
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) throw new Error('Usuário não autenticado');
-
         const { data, error } = await supabase
             .from('professionals')
             .insert([{ ...professional, user_id: user.id }])
             .select();
-
         if (error) throw error;
         return data[0];
     }
 };
-
