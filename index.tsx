@@ -1,12 +1,10 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App'
-import "./styles/globals.css";
-import "./styles/App.module.css";
+import "./styles/globals.css"
 
-
-
-import { ErrorBoundary } from './src/components/Erro/ErrorBoundary'
+// Ajustando o caminho para o local correto que você me passou
+import { ErrorBoundary } from './components/Erro/ErrorBoundary'
 
 const rootElement = document.getElementById('root')
 
