@@ -3,7 +3,7 @@ import { ForgotPassword } from "./components/ForgotPassword";
 import { ResetPassword } from "./components/ResetPassword";
 import { Dashboard } from "./components/Dashboard";
 import { Logo } from "./components/Logo"
-import styles from "./styles/App.module.css";
+import styles from '../styles/App.module.css';
 import { supabase } from "./lib/supabase";
 import { useEffect, useState } from 'react'
 import MarketingSection from "@/components/MarketingSection/MarketingSection";
